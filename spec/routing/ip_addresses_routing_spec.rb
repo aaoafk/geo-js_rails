@@ -10,7 +10,6 @@ RSpec.describe IpAddressesController, type: :routing do
       expect(get: "/ip_addresses/1").to route_to("ip_addresses#show", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/ip_addresses").to route_to("ip_addresses#create")
     end
