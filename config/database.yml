@@ -21,16 +21,16 @@ default: &default
 
 development:
   <<: *default
-  database: geo_js_rails_development
+  database: <%= ENV.fetch("DEVELOPMENT_DATABASE_NAME") { "geo_js_rails_development" } %>
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: geo_js_rails
+  username: <%= ENV.fetch("DEVELOPMENT_DATABASE_SERVICE_ACCOUNT") { "sa_geo_js_rails_dev" } %>
 
   # The password associated with the PostgreSQL role (username).
-  #password:
+  password: <%= ENV.fetch("DEVELOPMENT_DATABASE_PASSWORD") { "" } %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -53,9 +53,22 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+
+# TEST_DATABASE_NAME=geo_js_rails_test
+# TEST_DATABASE_SERVICE_ACCOUNT=sa_geo_js_rails_test
+# TEST_DATABASE_PASSWORD=super_secret_password
 test:
   <<: *default
-  database: geo_js_rails_test
+  database: <%= ENV.fetch("TEST_DATABASE_NAME") { "geo_js_rails_test" } %>
+
+  # The specified database role being used to connect to PostgreSQL.
+  # To create additional roles in PostgreSQL see `$ createuser --help`.
+  # When left blank, PostgreSQL will use the default role. This is
+  # the same name as the operating system user running Rails.
+  username: <%= ENV.fetch("TEST_DATABASE_SERVICE_ACCOUNT") { "sa_geo_js_rails_test" } %>
+
+  # The password associated with the PostgreSQL role (username).
+  password: <%= ENV.fetch("TEST_DATABASE_PASSWORD") { "" } %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

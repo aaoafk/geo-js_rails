@@ -18,8 +18,17 @@ require "action_view/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+
 module GeoJsRails
   class Application < Rails::Application
+
+    # Loads environmental values...
+    if ['development', 'test'].include? ENV['RAILS_ENV']
+      Dir.glob("#{Rails.root}/config/.env.*.local").each do |developer_environment_values_file|
+        Dotenv.load developer_environment_values_file
+      end
+    end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 

@@ -37,3 +37,19 @@ group :development do
 
 end
 
+
+group :development, :test do
+  gem "rspec-rails"
+end
+
+gem "faker", "~> 3.2"
+
+gem "dotenv-rails", "~> 2.8", :groups => [:development, :test]
+
+gem "http", "~> 5.1"
+
+group :development, :test do
+  gem "factory_bot_rails"
+end
+
+gem "countries", "~> 5.7"
